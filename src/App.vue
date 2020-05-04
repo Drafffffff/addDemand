@@ -165,7 +165,7 @@ body {
   // overflow: hidden;
 }
 .van-nav-bar {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .aa {
