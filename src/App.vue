@@ -127,7 +127,7 @@ export default {
 
       this.$axios({
         method: "post",
-        url: "https://106.12.95.128:8080/science/userAddDemand",
+        url: "http://106.12.95.128:8080/science/userAddDemand",
         data: values,
         transformRequest: [
           function(data) {
