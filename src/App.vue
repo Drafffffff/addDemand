@@ -127,7 +127,7 @@ export default {
 
       this.$axios({
         method: "post",
-        url: "http://106.12.95.128:8080/science/userAddDemand", // 接口地址
+        url: "https://106.12.95.128:8080/science/userAddDemand",
         data: values,
         transformRequest: [
           function(data) {
@@ -136,13 +136,13 @@ export default {
           },
         ],
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       })
         .then(response => {
-          console.log(response, "success"); // 成功的返回
+          console.log(response, "success"); // 成功
         })
-        .catch(error => console.log(error, "error")); // 失败的返回
+        .catch(error => console.log(error, "error")); // 失败
     },
     onCategoryConfirm(value, index) {
       this.categoryName = value;
