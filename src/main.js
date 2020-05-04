@@ -6,6 +6,10 @@ import { NavBar } from "vant";
 import { Picker } from "vant";
 import { Popup } from "vant";
 import axios from "axios";
+import { Tab, Tabs } from "vant";
+
+Vue.use(Tab);
+Vue.use(Tabs);
 Vue.prototype.$axios = axios; //全局注册，使用方法为:this.$axios
 Vue.use(Popup);
 Vue.use(Picker);
