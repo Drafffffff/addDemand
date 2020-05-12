@@ -1,18 +1,22 @@
 <template>
   <div id="app">
-    <van-tabs v-model="active" animated>
+    <van-nav-bar title="联盟会员" />
+    <!-- <van-tabs v-model="active" animated>
       <van-tab title="需求申请"> <addDemand /></van-tab>
-      <van-tab title="新增咨询"><userAddUpdateConsult /></van-tab>
-    </van-tabs>
+      <van-tab title="政策咨询"><userAddUpdateConsult /></van-tab>
+    </van-tabs> -->
+    <!-- <addDemand /> -->
+    <userAddMember />
+    <!-- <userAddUpdateConsult /> -->
   </div>
 </template>
 
 <script>
-import addDemand from "./components/addDemand";
-import userAddUpdateConsult from "./components/userAddUpdateConsult";
+// import addDemand from "./components/addDemand";
+import userAddMember from "./components/userAddMember";
 export default {
   name: "App",
-  components: { addDemand, userAddUpdateConsult },
+  components: { userAddMember },
   data() {
     return { active: 0 };
   },
@@ -40,7 +44,7 @@ body {
   // overflow: hidden;
 }
 .van-nav-bar {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .aa {

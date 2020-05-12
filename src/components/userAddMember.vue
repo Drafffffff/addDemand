@@ -4,12 +4,12 @@
       <van-field
         readonly
         clickable
-        name="category"
+        name="categoryName"
         :value="categoryName"
-        label="需求类型"
-        placeholder="点击选择需求类型"
+        label="企业类型"
+        placeholder="点击选择企业类型"
         @click="showCategoryPicker = true"
-        :rules="[{ required: true, message: '请选择需求类型' }]"
+        :rules="[{ required: true, message: '请选择企业类型' }]"
       />
       <van-popup v-model="showCategoryPicker" position="bottom">
         <van-picker
@@ -19,39 +19,50 @@
           @cancel="showCategoryPicker = false"
         />
       </van-popup>
+
+      <van-field
+        v-model="name"
+        name="name"
+        label="企业名称"
+        placeholder="企业名称"
+        :rules="[{ required: true, message: '请填写企业名称' }]"
+      />
+
+      <van-field
+        v-model="businessScope"
+        name="businessScope"
+        label="主营业务"
+        placeholder="主营业务"
+        :rules="[{ required: true, message: '请填写主营业务' }]"
+      />
+
+      <van-field
+        v-model="address"
+        name="address"
+        label="办公地址"
+        placeholder="办公地址"
+        :rules="[{ required: true, message: '请填写办公地址' }]"
+      />
       <van-field
         readonly
         clickable
-        name="technicalField"
-        :value="technicalFieldName"
-        label="技术领域"
-        placeholder="点击选择技术领域"
-        @click="showTechnicalFieldPicker = true"
-        :rules="[{ required: true, message: '请选择技术领域' }]"
+        name="buildDateStr"
+        :value="buildDateStr"
+        label="成立时间"
+        placeholder="点击成立时间"
+        :rules="[{ required: true, message: '请填写成立时间' }]"
+        @click="showTimePicker = true"
       />
-      <van-popup v-model="showTechnicalFieldPicker" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="technicalFieldColumns"
-          @confirm="onTechnicalFieldConfirm"
-          @cancel="showTechnicalFieldPicker = false"
+      <van-popup v-model="showTimePicker" position="bottom">
+        <van-datetime-picker
+          type="date"
+          @confirm="onTimeConfirm"
+          @cancel="showTimePicker = false"
+          :min-date="minDate"
+          :max-date="maxDate"
         />
       </van-popup>
 
-      <van-field
-        class="aa"
-        id="content"
-        v-model="content"
-        rows="10"
-        autosize
-        label=""
-        type="textarea"
-        name="content"
-        maxlength="300"
-        placeholder="请输入需求内容"
-        show-word-limit
-        :rules="[{ required: true, message: '请填写需求内容' }]"
-      />
       <van-field
         v-model="contacts"
         name="contacts"
@@ -68,13 +79,13 @@
         placeholder="手机号"
         :rules="[{ required: true, message: '请填写手机号' }]"
       />
-      <van-field
+      <!-- <van-field
         v-model="email"
         name="email"
         label="邮箱"
         placeholder="邮箱"
         :rules="[{ validator, message: '请输入正确的邮箱' }]"
-      />
+      /> -->
 
       <div style="margin: 20px; margin-bottom:20px;">
         <van-button round block type="info" native-type="submit">
@@ -96,31 +107,25 @@ export default {
       content: "",
       contacts: "",
       tel: "",
-      email: "",
-      deadlineDateStr: "",
-      category: "",
+      businessScope: "",
+      address: "",
+      buildDateStr: "",
+      buildDate: "",
+      name: "",
+      categoryId: "",
       categoryName: "",
-      technicalField: "",
-      technicalFieldName: "",
       comment: "",
       categoryColumns: [],
       categoryData: [],
-      technicalFieldColumns: [],
-      technicalFieldData: [],
       showCategoryPicker: false,
-      showTechnicalFieldPicker: false,
-      // pattern: /\^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+      showTimePicker: false,
+      minDate: new Date(2000, 0, 1),
+      maxDate: new Date(2025, 10, 10),
     };
   },
   methods: {
-    validator(val) {
-      var regEmail = /^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-      return regEmail.test(val);
-    },
     onSubmit(values) {
-      values.technicalField = this.technicalField;
-      values.category = this.category;
-      values.technicalFieldName = this.technicalFieldName;
+      values.categoryId = this.categoryId;
       values.categoryName = this.categoryName;
       values.id = -1;
       values.deadlineDateStr = new Date();
@@ -128,7 +133,7 @@ export default {
 
       this.$axios({
         method: "post",
-        url: "http://106.12.95.128:8080/science/userAddDemand",
+        url: "http://106.12.95.128:8080/science/userAddMember",
         data: values,
         transformRequest: [
           function(data) {
@@ -150,51 +155,31 @@ export default {
         })
         .catch(error => console.log(error, "error")); // 失败
     },
+    onTimeConfirm(time) {
+      let Y = time.getFullYear() + "-";
+      let M =
+        (time.getMonth() + 1 < 10
+          ? "0" + (time.getMonth() + 1)
+          : time.getMonth() + 1) + "-";
+      let D = time.getDate() + " ";
+
+      this.buildDateStr = Y + M + D;
+      this.showTimePicker = false;
+    },
     onCategoryConfirm(value, index) {
       this.categoryName = value;
-      this.category = this.categoryData[index].id;
+      this.categoryId = this.categoryData[index].id;
       this.showCategoryPicker = false;
-    },
-    onTechnicalFieldConfirm(value, index) {
-      this.technicalFieldName = value;
-      this.technicalField = this.technicalFieldData[index].id;
-      this.showTechnicalFieldPicker = false;
     },
   },
   beforeMount() {
-    // this.$axios({
-    //   method: "post",
-    //   url: "http://106.12.95.128:8080/science/getCodesByCategory",
-    //   headers: {
-    //     "Content-type": "application/x-www-form-urlencoded",
-    //   },
-    //   data: {
-    //     category: "DemandCategory",
-    //     pageIndex: 1,
-    //     pageSize: 1000,
-    //     valid: 1,
-    //   },
-    //   transformRequest: [
-    //     function(data) {
-    //       let ret = "";
-    //       for (let it in data) {
-    //         ret +=
-    //           encodeURIComponent(it) + "=" + encodeURIComponent(data[it]) + "&";
-    //       }
-    //       return ret;
-    //     },
-    //   ],
-    // }).then(res => {
-    //   console.log(res.data);
-    // });
-
     fetch("http://106.12.95.128:8080/science/getCodesByCategory", {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/x-www-form-urlencoded",
       }),
       body: new URLSearchParams([
-        ["category", "DemandCategory"],
+        ["category", "MemberCategory"],
         ["pageIndex", 1],
         ["pageSize", 1000],
         ["valid", 1],
@@ -210,29 +195,7 @@ export default {
         });
         // console.log(JSON.parse(res).datas);
       });
-
-    fetch("http://106.12.95.128:8080/science/getCommonCategorys", {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/x-www-form-urlencoded",
-      }),
-      body: new URLSearchParams([
-        ["category", "0107"],
-        ["pageIndex", 1],
-        ["pageSize", 1000],
-        ["valid", 1],
-      ]).toString(),
-    })
-      .then(res => {
-        return res.text();
-      })
-      .then(res => {
-        this.technicalFieldData = JSON.parse(res).datas;
-        this.technicalFieldData.forEach(e => {
-          this.technicalFieldColumns.push(e.name);
-        });
-        // console.log(JSON.parse(res).datas);
-      });
+    // console.log(JSON.parse(res).datas);
   },
 };
 </script>
