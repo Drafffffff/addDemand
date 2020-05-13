@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div class="text">
+      <p>浙江省高新技术企业协会会员申请表</p>
+      <div>
+        会员承诺：
+        本企业自愿申请加入浙江省高新技术企业协会。本企业庄重承诺，严格遵循浙江省高新技术企业协会章程，积极履行会员义务。本表所填内容均真实有效。
+      </div>
+    </div>
     <van-form @submit="onSubmit">
       <van-field
         readonly
@@ -21,6 +28,7 @@
       </van-popup>
 
       <van-field
+        class="p1"
         v-model="name"
         name="name"
         label="企业名称"
@@ -45,6 +53,7 @@
       />
       <van-field
         readonly
+        class="p2"
         clickable
         name="buildDateStr"
         :value="buildDateStr"
@@ -212,5 +221,34 @@ body {
 
 .aa {
   margin-bottom: 20px;
+}
+
+.p1 {
+  margin-bottom: 20px;
+}
+.p2 {
+  margin-bottom: 20px;
+}
+.text {
+  padding-top: 20px;
+  background-color: white;
+  p {
+    text-align: center;
+    color: #666;
+    font-weight: bold;
+    margin: 0;
+  }
+  div {
+    font-size: 0.85rem;
+
+    color: #666;
+    padding: 30px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    line-height: 22px;
+    letter-spacing: 2px;
+    // text-indent: 20px;
+    font-weight: bold;
+  }
 }
 </style>
