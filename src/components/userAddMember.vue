@@ -61,8 +61,8 @@
       />
 
       <van-field
-        v-model="contacts"
-        name="contacts"
+        v-model="contact"
+        name="contact"
         label="联系人"
         placeholder="联系人"
         :rules="[{ required: true, message: '请填写联系人' }]"
@@ -76,13 +76,7 @@
         placeholder="手机号"
         :rules="[{ required: true, message: '请填写手机号' }]"
       />
-      <!-- <van-field
-        v-model="email"
-        name="email"
-        label="邮箱"
-        placeholder="邮箱"
-        :rules="[{ validator, message: '请输入正确的邮箱' }]"
-      /> -->
+
 
       <div style="margin: 20px; margin-bottom:20px;">
         <van-button round block type="info" native-type="submit">
@@ -102,7 +96,7 @@ export default {
     return {
       id: "",
       content: "",
-      contacts: "",
+      contact: "",
       tel: "",
       businessScope: "",
       address: "",
@@ -125,7 +119,6 @@ export default {
       values.categoryId = this.categoryId;
       values.categoryName = this.categoryName;
       values.id = -1;
-      values.deadlineDateStr = new Date();
       console.log("submit", values);
 
       this.$axios({
@@ -146,7 +139,7 @@ export default {
           console.log(response, "success"); // 成功
           Toast.success("提交成功，工作人员会与您联系");
           setTimeout(() => {
-            location.reload();
+            // location.reload();
           }, 1500);
           // this.$toast("提交成功");
         })
