@@ -52,25 +52,13 @@
         :rules="[{ required: true, message: '请填写办公地址' }]"
       />
       <van-field
-        readonly
         class="p2"
-        clickable
+        v-model="buildDateStr"
         name="buildDateStr"
-        :value="buildDateStr"
         label="成立时间"
         placeholder="点击成立时间"
         :rules="[{ required: true, message: '请填写成立时间' }]"
-        @click="showTimePicker = true"
       />
-      <van-popup v-model="showTimePicker" position="bottom">
-        <van-datetime-picker
-          type="date"
-          @confirm="onTimeConfirm"
-          @cancel="showTimePicker = false"
-          :min-date="minDate"
-          :max-date="maxDate"
-        />
-      </van-popup>
 
       <van-field
         v-model="contacts"
