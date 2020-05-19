@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="text">
-      <p>浙江省高新技术企业协会会员申请表</p>
+      <p>浙江省高校产学研联盟钱塘中心</p>
       <div>
         会员承诺：
         本企业自愿申请加入浙江省高新技术企业协会。本企业庄重承诺，严格遵循浙江省高新技术企业协会章程，积极履行会员义务。本表所填内容均真实有效。
@@ -56,7 +56,7 @@
         v-model="buildDateStr"
         name="buildDateStr"
         label="成立时间"
-        placeholder="点击成立时间"
+        placeholder="成立时间"
         :rules="[{ required: true, message: '请填写成立时间' }]"
       />
 
