@@ -4,7 +4,7 @@
       <p>浙江省高校产学研联盟钱塘中心</p>
       <div>
         会员承诺：
-        本企业自愿申请加入浙江省高新技术企业协会。本企业庄重承诺，严格遵循浙江省高新技术企业协会章程，积极履行会员义务。本表所填内容均真实有效。
+        本企业自愿申请加入浙江省高校产学研联盟钱塘中心。本企业庄重承诺，严格遵循浙江省高校产学研联盟钱塘中心章程，积极履行会员义务。本表所填内容均真实有效。
       </div>
     </div>
     <van-form @submit="onSubmit">
@@ -76,7 +76,6 @@
         placeholder="手机号"
         :rules="[{ required: true, message: '请填写手机号' }]"
       />
-
 
       <div style="margin: 20px; margin-bottom:20px;">
         <van-button round block type="info" native-type="submit">
